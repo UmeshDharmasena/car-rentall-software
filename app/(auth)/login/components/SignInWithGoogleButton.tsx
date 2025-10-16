@@ -18,6 +18,9 @@ const SignInWithGoogleButton: React.FC<SignInWithGoogleButtonProps> = ({ redirec
       onClick={async () => {
         console.log('[auth] Google OAuth start', { redirectTo });
         
+        // Get the base URL for production
+        const baseUrl = typeof window !== 'undefined' ? window.location.origin : 'https://www.carrentallsoftware.com';
+        
         const { data, error } = await supabase.auth.signInWithOAuth({
           provider: "google",
           options: {
@@ -25,7 +28,7 @@ const SignInWithGoogleButton: React.FC<SignInWithGoogleButtonProps> = ({ redirec
               access_type: "offline", 
               prompt: "consent" 
             },
-            redirectTo: `${window.location.origin}/auth/confirm/callback?next=${encodeURIComponent(redirectTo)}`,
+            redirectTo: `${baseUrl}/auth/confirm/callback?next=${encodeURIComponent(redirectTo)}`,
             skipBrowserRedirect: false,
           },
         });

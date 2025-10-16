@@ -28,6 +28,12 @@ export async function login(formData: FormData) {
 export async function signup(formData: FormData) {
   const supabase = createClient();
 
+  // Get the base URL from environment or construct it
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 
+                  process.env.NEXT_PUBLIC_VERCEL_URL ? 
+                    `https://${process.env.NEXT_PUBLIC_VERCEL_URL}` : 
+                    'https://www.carrentallsoftware.com';
+
   // type-casting here for convenience
   // in practice, you should validate your inputs
   const firstName = formData.get("first-name") as string;
@@ -36,6 +42,7 @@ export async function signup(formData: FormData) {
     email: formData.get("email") as string,
     password: formData.get("password") as string,
     options: {
+      emailRedirectTo: `${baseUrl}/auth/confirm`,
       data: {
         full_name: `${firstName + " " + lastName}`,
         email: formData.get("email") as string,
@@ -66,6 +73,13 @@ export async function signout() {
 
 export async function signInWithGoogle() {
   const supabase = createClient();
+  
+  // Get the base URL from environment or construct it
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 
+                  process.env.NEXT_PUBLIC_VERCEL_URL ? 
+                    `https://${process.env.NEXT_PUBLIC_VERCEL_URL}` : 
+                    'https://www.carrentallsoftware.com';
+  
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: "google",
     options: {
@@ -73,6 +87,7 @@ export async function signInWithGoogle() {
         access_type: "offline",
         prompt: "consent",
       },
+      redirectTo: `${baseUrl}/auth/confirm/callback`,
     },
   });
 
