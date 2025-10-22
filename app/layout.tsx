@@ -11,6 +11,10 @@ export const metadata: Metadata = {
   title: 'Car Rentall Software & Review Site',
   description: 'Compare top car rental solutions by price, features, and user ratings. Choose software tailored to your business size and needs.',
   keywords: 'car rental software, fleet management, rental management, software comparison',
+  metadataBase: new URL('https://www.carrentallsoftware.com'),
+  alternates: {
+    canonical: '/',
+  },
   icons: {
     icon: [
       {
