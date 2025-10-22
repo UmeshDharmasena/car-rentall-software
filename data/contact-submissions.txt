@@ -1,0 +1,4 @@
+# Contact Form Submissions
+# This file contains all contact form submissions from the Car Rentall Software website
+# Format: Each submission is separated by a line of equal signs with timestamp, contact details, and message
+
